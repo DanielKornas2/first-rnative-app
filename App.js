@@ -1,11 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default class App extends React.Component {
+export default class App extends Component {
+
+  state = {
+    sampleName: ''
+  }
+
+  handleChange = (val) => {
+    this.setState({
+      sampleName: val
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>My first React Native txt!</Text>
+        <TextInput 
+        style={{width:200, borderWidth: 1, borderColor: "gray", paddingLeft: 5}}
+        placeholder="Placeholder wow"
+        value={this.state.sampleName} 
+        onChangeText={this.handleChange} 
+        />
       </View>
     );
   }
@@ -16,6 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    padding: 50,
   },
 });

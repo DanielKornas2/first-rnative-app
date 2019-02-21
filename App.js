@@ -12,14 +12,17 @@ export default class App extends Component {
 
   submitPlace = (userPlaceName) => {
     this.setState(prevstate => ({
-      places: prevstate.places.concat(userPlaceName)
+      places: prevstate.places.concat({key: `${Math.random()}`, value: userPlaceName})
     }))
   }
 
   onItemDeleted = index => {
+    console.log(this.state);
+    console.log(index);
+
     this.setState(prevstate => ({
-      places: prevstate.places.filter((place,i) => {
-        return i !== index;
+      places: prevstate.places.filter((place) => {
+        return place.key !== index;
       })
     }))
   }

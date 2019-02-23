@@ -1,69 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import PlaceInput from './src/components/PlaceInput/PlaceInput';
-import PlaceList from './src/components/PlaceList/PlaceList';
-import PlaceDetail from './src/components/PlaceDetail/PlaceDetail'
-import sampleImage from './assets/sampleimage.jpg';
-
+import Main from './Main';
+import { Provider } from 'react-redux';
+import configureStore from "./src/store/configureStore";
+ 
+const store = configureStore();
+ 
 export default class App extends Component {
-
-  state = {
-    places: [],
-    selectedPlace: null,
-  }
-
-  submitPlace = (userPlaceName) => {
-    this.setState(prevstate => ({
-      places: prevstate.places.concat({
-        key: `${Math.random()}`, 
-        name: userPlaceName,
-        image: sampleImage
-      })
-    }))
-  }
-
-  onItemDeleted = () => {
-    this.setState(prevstate => ({
-      places: prevstate.places.filter((place) => {
-        return place.key !== prevstate.selectedPlace.key;
-      }),
-      selectedPlace: null,
-    }))
-  }
-
-  onItemSelected = key => {
-
-    this.setState(prevstate => ({
-      selectedPlace: prevstate.places.find((place) => {
-        return place.key === key;
-      })
-    }))
-  }
-
-  onModalClosed = () => {
-    this.setState({
-      selectedPlace: null,
-    })
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-      <PlaceDetail selectedPlace={this.state.selectedPlace} onModalClosed={this.onModalClosed} onItemDeleted={this.onItemDeleted} />
-      <PlaceInput submitPlace={this.submitPlace} />
-      <PlaceList places={this.state.places} onItemSelected={this.onItemSelected} />
-      </View>
-    );
-  }
+    render() {
+        return (
+            <Provider store={store}>
+                <Main />
+            </Provider>
+        );
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: 40,
-  }
-});

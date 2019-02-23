@@ -32,11 +32,11 @@ export default class App extends Component {
     }))
   }
 
-  onItemSelected = index => {
+  onItemSelected = key => {
 
     this.setState(prevstate => ({
       selectedPlace: prevstate.places.find((place) => {
-        return place.index === index;
+        return place.key === key;
       })
     }))
   }
